@@ -14,6 +14,9 @@ class SlackWebhookHandler(RequestHandler):
         rendered = loader.load('slackbot_webhook.html').generate()
         self.write(rendered)
 
+    def post(self):
+        self.write("Sending to Slack!")
+
 
 def main():
     application = Application([
