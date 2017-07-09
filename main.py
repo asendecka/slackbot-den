@@ -4,10 +4,12 @@ from tornado.httpserver import HTTPServer
 from tornado.web import Application
 
 from handlers.slack_webhook_handler import SlackWebhookHandler
+from handlers.slack_slash_command_handler import SlackSlashCommandHandler
 
 
 def main():
     application = Application([
+        (r'/whattime', SlackSlashCommandHandler),
         (r'/', SlackWebhookHandler),
     ])
 
