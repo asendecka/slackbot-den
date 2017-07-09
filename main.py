@@ -1,20 +1,23 @@
 import os
 from tornado.ioloop import IOLoop
 from tornado.httpserver import HTTPServer
+from tornado.template import Loader
 from tornado.web import (
     Application,
     RequestHandler,
 )
 
 
-class SlackHandler(RequestHandler):
+class SlackWebhookHandler(RequestHandler):
     def get(self):
-        self.write("It works!")
+        loader = Loader('templates')
+        rendered = loader.load('slackbot_webhook.html').generate()
+        self.write(rendered)
 
 
 def main():
     application = Application([
-        (r'/', SlackHandler),
+        (r'/', SlackWebhookHandler),
     ])
 
     http_server = HTTPServer(application)
